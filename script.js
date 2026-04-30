@@ -19,6 +19,11 @@ form.addEventListener("submit", function (e) {
   const span = document.createElement("span");
   span.textContent = taskText;
 
+  // Toggle completed state
+  span.addEventListener("click", function () {
+    li.classList.toggle("completed");
+  });
+
   // Create delete button
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "❌";
