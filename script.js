@@ -2,6 +2,7 @@
 const form = document.querySelector(".task-form");
 const input = form.querySelector("input");
 const taskList = document.querySelector(".task-list");
+const filterButtons = document.querySelectorAll(".filters button");
 
 // Handle form submit
 form.addEventListener("submit", function (e) {
@@ -43,4 +44,29 @@ form.addEventListener("submit", function (e) {
 
   // Clear input
   input.value = "";
+});
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    // Remove active class from all buttons
+    filterButtons.forEach((btn) => btn.classList.remove("active"));
+
+    // Add active class to clicked button
+    button.classList.add("active");
+
+    const filter = button.getAttribute("data-filter");
+    const tasks = document.querySelectorAll(".task-list li");
+
+    tasks.forEach((task) => {
+      const isCompleted = task.classList.contains("completed");
+
+      if (filter === "all") {
+        task.style.display = "flex";
+      } else if (filter === "completed") {
+        task.style.display = isCompleted ? "flex" : "none";
+      } else if (filter === "pending") {
+        task.style.display = !isCompleted ? "flex" : "none";
+      }
+    });
+  });
 });
